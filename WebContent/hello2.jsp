@@ -46,5 +46,15 @@
 	<%="Value of the variable is:" + data--%>
 	<br />
 	<%=new Date()%>
+	
+		<%
+		//Petlja
+	for (int i = 0; i < 10; i++) {
+	%>
+	<p> <%=i  %> </p>
+	
+	<% 
+	}
+	%>
 </body>
 </html>
