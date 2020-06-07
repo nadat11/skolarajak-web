@@ -11,23 +11,26 @@
 	<%@ include file="header.html"%>
 	<!-- include dirketiva staticka  -->
 	<jsp:include page="printdate.jsp" />
-	<!--include ackija staticka -->
+	<!--include ackija staticka   -->
 
 	<%
 		Long ms = System.currentTimeMillis(); //java kod
 		out.write(ms.toString());
 		if (ms % 2 == 0) {
 	%>
-	
+
 	<%--  html ili jsp kod --%>
-	<jsp:forward page="prikaz.jsp"> 
-		<jsp:param name="name" value="<%=ms%>" />
-	</jsp:forward>
+	<p>Milisekunde <%= ms %> su parne</p>
 	<%
-		}
+		}else{
 	%>
 
-	<!-- Declaration -->
+
+	<%--  html ili jsp kod --%>
+	<p>Milisekunde <%= ms %> su neparne</p>
+	
+	<%	}  %>
+
 	<%!int data = 50;%>
 	<!-- Execution -->
 	<%
