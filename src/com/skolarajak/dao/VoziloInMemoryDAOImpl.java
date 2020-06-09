@@ -85,4 +85,10 @@ public class VoziloInMemoryDAOImpl implements VoziloDAO {
 		return VoziloInMemoryDAOImpl.registrovanaVozila.values().stream() // filter nad celokupnim skupom vrednosti
 				.filter(v -> v.getVlasnik().getIme().contains("A")).collect(Collectors.toList());
 	}
+
+	@Override
+	public List<Vozilo> getEuro3Vozila(int page) throws ResultNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -1,5 +1,6 @@
 package com.skolarajak.servisi;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,10 +93,17 @@ public class AdministriranjeVozila {
 
 		return vozila;
 	}
-
+	public void unesiVlasnika(Vlasnik vlasnik) throws SQLException {
+		vlasnikDAO.create(vlasnik);
+	}
 	public List<Vozilo> euro3Vozila() throws ResultNotFoundException {
 
 		List<Vozilo> euro3Vozila = voziloDAO.getEuro3Vozila();
+		return euro3Vozila;
+	}
+	public List<Vozilo> euro3Vozila(int page) throws ResultNotFoundException {
+
+		List<Vozilo> euro3Vozila = voziloDAO.getEuro3Vozila(page);
 		return euro3Vozila;
 	}
 
@@ -108,6 +116,10 @@ public class AdministriranjeVozila {
 		return voziloDAO.getAll();
 	}
 
+	public Vlasnik dajVlasnika(String brojVozackeDozvole) throws ResultNotFoundException {
+		return vlasnikDAO.read(brojVozackeDozvole);
+	}
+	
 	public List<Vlasnik> dajSveVlasnike() throws ResultNotFoundException {
 		return vlasnikDAO.getAll();
 	}
