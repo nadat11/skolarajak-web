@@ -1,12 +1,13 @@
 package com.skolarajak.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.skolarajak.exceptions.dao.ResultNotFoundException;
 import com.skolarajak.model.Vlasnik;
 
 public interface VlasnikDAO {
-	Vlasnik create(Vlasnik vlasnik);
+	Vlasnik create(Vlasnik vlasnik) throws SQLException;
 
 	Vlasnik read(String brojVozackeDozvole) throws ResultNotFoundException;
 

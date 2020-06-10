@@ -42,7 +42,7 @@ public class AdministriranjeVozila {
 	 * @return List<Vozilo> test vozila
 	 */
 
-	public List<Vozilo> generisi() {
+	public List<Vozilo> generisi() throws SQLException {
 		List<Vozilo> vozila = new ArrayList<Vozilo>();
 		try { // hvatamo sve greske
 			Vozilo zadnjeVozilo = null;
@@ -151,6 +151,12 @@ public class AdministriranjeVozila {
 		}
 	}
 	
+	public void obrisiVlasnika(String brojVozackeDozvole) throws ResultNotFoundException  {
+		for(Vozilo vozilo : voziloDAO.getAllVozilaZaVlasnika(brojVozackeDozvole)) {
+			voziloDAO.delete(vozilo.getRegistarskiBroj());
+		}
+		vlasnikDAO.delete(brojVozackeDozvole);
+	}
 	public int dodeliGodinuProizvodnje() {
 		int godina = RandomUtils.slucajanBrojUIntervalu(Konstante.MIN_VOZILO_GODISTE, Konstante.MAX_VOZILO_GODISTE);
 		return godina;

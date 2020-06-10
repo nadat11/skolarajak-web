@@ -23,19 +23,20 @@ public class VlasnikDBDAOImpl implements VlasnikDAO {
 	}
 
 	@Override
-	public Vlasnik create(Vlasnik vlasnik) {
-
+	public Vlasnik create(Vlasnik vlasnik) throws SQLException {
+		Connection conn = null;
+		PreparedStatement preparedStmt = null;
 		try {
 			// create a mysql database connection
-
-			Connection conn = getConnection(); // otvara konekciju za bazu sa username i pass
-
+			
+			 conn = getConnection(); // otvara konekciju za bazu sa username i pass
+			 conn.setAutoCommit(false);
 			// the mysql insert statement
 			String query = "insert into vlasnik (brojVozackeDozvole, ime, prezime)" + " values (?, ?, ?)"; // insert
 																											// sql
 
 			// create the mysql insert preparedstatement za ? ? ? ?
-			PreparedStatement preparedStmt = conn.prepareStatement(query); // prepare znaci da se insert napravi
+			 preparedStmt = conn.prepareStatement(query); // prepare znaci da se insert napravi
 																			// sematski jednom i onda se izvrsava
 			preparedStmt.setString(1, vlasnik.getBrojVozackeDozvole()); // moramo da kazemo tip prepare statmenta ovde
 																		// su sva tri String
@@ -44,11 +45,16 @@ public class VlasnikDBDAOImpl implements VlasnikDAO {
 
 			// execute the preparedstatement
 			preparedStmt.execute(); // izvrsi
-			preparedStmt.close();
-			conn.close(); // zatvori konekciju
+			//preparedStmt.close();
+			conn.commit(); // zatvori konekciju
 		} catch (Exception e) { // ako ima greska
 			System.err.println("Got an exception!");
 			System.err.println(e.getMessage());
+			conn.rollback();
+		} finally {
+			preparedStmt.close();
+			conn.close();
+			
 		}
 		return vlasnik;
 	};
@@ -95,8 +101,8 @@ public class VlasnikDBDAOImpl implements VlasnikDAO {
 	};
 
 	@Override
-	public Vlasnik update(Vlasnik vlasnik) {
-
+	public Vlasnik update(Vlasnik vlasnik)  {
+		
 		try {
 			// create a mysql database connection
 
@@ -114,7 +120,6 @@ public class VlasnikDBDAOImpl implements VlasnikDAO {
 			// execute the preparedstatement
 			preparedStmt.executeUpdate(); // izvrsi
 
-			preparedStmt.close();
 			conn.close(); // zatvori konekciju
 		} catch (Exception e) { // ako ima greska
 			System.err.println("Got an exception!");

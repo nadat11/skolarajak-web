@@ -50,7 +50,7 @@
       <url-pattern>/hello.html</url-pattern>
     </servlet-mapping>
     
-    <!--  -->
+    <!--sta se procesira, sta je akcija listajVlasnike -->
     <servlet>
       <servlet-name>ListajVlasnike</servlet-name>
       <servlet-class>com.skolarajak.servlets.ListajVlasnike</servlet-class>

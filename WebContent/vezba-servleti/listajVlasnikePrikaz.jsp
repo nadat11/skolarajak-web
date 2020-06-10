@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Listaj vlasnika</title>
 <link rel="stylesheet" type="text/css"
 	href="/javaweb/vezba-baza/style.css">
 </head>
@@ -15,13 +15,13 @@
 			int pageNumber = 1;
 
 		try {
-			pageNumber = Integer.parseInt(request.getParameter("p"));
+			pageNumber = (Integer)request.getAttribute("pageNumber");
 		} catch (NumberFormatException e) {
 
 		}
-
-		AdministriranjeVozila administracijaVozila = new AdministriranjeVozila();
-		List<Vlasnik> vlasnici= administracijaVozila.dajSveVlasnike(pageNumber);
+       // kada posledi stranu uzima atribut isti je naziv, kastuje se jer getAtribute radi sa objektima 
+		//preuzeli smo sta je servlet propagirao
+	    List<Vlasnik> vlasnici= (List<Vlasnik>)request.getAttribute("listaVlasnika");
 
 		String dataTemplate = "<td>%s</td>";
 
@@ -34,7 +34,7 @@
 				out.write(String.format(dataTemplate, vlasnik.getPrezime()));
 				
 			out.write(String.format(dataTemplate, vlasnik.getBrojVozackeDozvole()));
-			String vlasnikLinkTemplate = "<a href='/javaweb/vezba-baza/brisiVlasnika.jsp?id=%s' target='_blank'>Obrisi</a>";
+			String vlasnikLinkTemplate = "<a href='/javaweb/vezba-servleti/brisiVlasnika.jsp?id=%s' target='_blank'>Obrisi</a>";
 			String brojVozackeDozvole = vlasnik.getBrojVozackeDozvole();
 			String vlasnikLink = String.format(vlasnikLinkTemplate, brojVozackeDozvole);
 			out.write(String.format(dataTemplate, vlasnikLink));
@@ -46,9 +46,9 @@
 			out.write("<div class='no-result>'Nema rezultata</div>");
 		}
 		%>
-		<a class="pages" href="/javaweb/vezba-baza/listaVlasnika.jsp?p=<%=pageNumber - 1%>"> < </a>
+		<a class="pages" href="/javaweb/vezba-servleti/listaVlasnika.html?p=<%=pageNumber - 1%>"> < </a>
 		<div class="pages">	strana<%=pageNumber%></div>
-		<a class="pages"href="/javaweb/vezba-baza/listaVlasnika.jsp?p=<%=pageNumber + 1%>"> > </a>
+		<a class="pages"href="/javaweb/vezba-servleti/listaVlasnika.html?p=<%=pageNumber + 1%>"> > </a>
 	</table>
 </body>
 </html>
