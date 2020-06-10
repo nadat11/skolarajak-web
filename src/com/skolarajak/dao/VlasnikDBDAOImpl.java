@@ -13,9 +13,10 @@ import com.skolarajak.exceptions.dao.ResultNotFoundException;
 import com.skolarajak.model.Vlasnik;
 import com.skolarajak.model.Vozilo;
 import com.skolarajak.utils.DBUtils;
+import com.skolarajak.utils.Konstante;
 
 public class VlasnikDBDAOImpl implements VlasnikDAO {
-	
+
 	public VlasnikDBDAOImpl() throws ClassNotFoundException {
 
 		Class.forName(DBUtils.myDriver); // ucitava u JVM classu myDriver
@@ -31,8 +32,7 @@ public class VlasnikDBDAOImpl implements VlasnikDAO {
 
 			// the mysql insert statement
 			String query = "insert into vlasnik (brojVozackeDozvole, ime, prezime)" + " values (?, ?, ?)"; // insert
-																												// sql
-																												
+																											// sql
 
 			// create the mysql insert preparedstatement za ? ? ? ?
 			PreparedStatement preparedStmt = conn.prepareStatement(query); // prepare znaci da se insert napravi
@@ -56,7 +56,7 @@ public class VlasnikDBDAOImpl implements VlasnikDAO {
 	@Override
 	public Vlasnik read(String brojVozackeDozvole) throws ResultNotFoundException {
 		Vlasnik vlasnik = new Vlasnik();
-		Vozilo vozilo = new Vozilo ();
+		Vozilo vozilo = new Vozilo();
 		try {
 
 			Connection conn = getConnection(); // otvara konekciju za bazu sa username i pass
@@ -64,9 +64,9 @@ public class VlasnikDBDAOImpl implements VlasnikDAO {
 			// the mysql insert statement
 			String query = "select * from vlasnik, vozilo where brojVozackeDozvole=?"
 					+ " and vlasnik.brojVozackeDozvole=vozilo.vlasnikId"; // veza vlasnika i vozila
-		
-			PreparedStatement preparedStmt = conn.prepareStatement(query); 
-			preparedStmt.setString(1, brojVozackeDozvole); 
+
+			PreparedStatement preparedStmt = conn.prepareStatement(query);
+			preparedStmt.setString(1, brojVozackeDozvole);
 
 			// process the results
 			ResultSet rs = preparedStmt.executeQuery();
@@ -75,12 +75,12 @@ public class VlasnikDBDAOImpl implements VlasnikDAO {
 				vlasnik.setBrojVozackeDozvole(brojVozackeDozvole);
 				vlasnik.setIme(rs.getString("ime")); // text je naziv kolone
 				vlasnik.setPrezime(rs.getString("prezime"));
-				
+
 				vozilo.setRegistarskiBroj(rs.getString("registarskiBroj"));
 				vozilo.setGodisteProizvodnje(rs.getInt("godisteProizvodnje"));
 				vozilo.setAktivno(rs.getBoolean("status"));
-				vozilo.setVlasnik(vlasnik);//uvezano vozilo sa vlasnikom 
-				
+				vozilo.setVlasnik(vlasnik);// uvezano vozilo sa vlasnikom
+
 				vlasnik.setVozilo(vozilo); // obavezno povezivanje sa vlasnikom
 			}
 			rs.close(); // sve sto smo otvorili zatvaramo resultset, preparestatment, connection
@@ -90,7 +90,7 @@ public class VlasnikDBDAOImpl implements VlasnikDAO {
 			System.err.println("Got an exception!");
 			System.err.println(t.getMessage());
 		}
-	
+
 		return vlasnik;
 	};
 
@@ -106,14 +106,14 @@ public class VlasnikDBDAOImpl implements VlasnikDAO {
 			String query = "update vlasnik set ime=?, prezime=? where brojVozackeDozvole = ?";
 
 			// create the mysql insert preparedstatement za ? ? ? ?
-			PreparedStatement preparedStmt = conn.prepareStatement(query); 
+			PreparedStatement preparedStmt = conn.prepareStatement(query);
 			preparedStmt.setString(1, vlasnik.getIme());
 			preparedStmt.setString(2, vlasnik.getPrezime());
-			preparedStmt.setString(3, vlasnik.getBrojVozackeDozvole()); 
+			preparedStmt.setString(3, vlasnik.getBrojVozackeDozvole());
 
 			// execute the preparedstatement
 			preparedStmt.executeUpdate(); // izvrsi
-			
+
 			preparedStmt.close();
 			conn.close(); // zatvori konekciju
 		} catch (Exception e) { // ako ima greska
@@ -134,12 +134,12 @@ public class VlasnikDBDAOImpl implements VlasnikDAO {
 			String query = "delete from vlasnik where brojVozackeDozvole = ?";
 
 			// create the mysql insert preparedstatement za ? ? ? ?
-			PreparedStatement preparedStmt = conn.prepareStatement(query); 
-			preparedStmt.setString(1, brojVozackeDozvole); 
+			PreparedStatement preparedStmt = conn.prepareStatement(query);
+			preparedStmt.setString(1, brojVozackeDozvole);
 
 			// execute the preparedstatement
 			preparedStmt.execute(); // izvrsi
-			
+
 			preparedStmt.close();
 			conn.close(); // zatvori konekciju
 		} catch (Exception e) { // ako ima greska
@@ -151,36 +151,38 @@ public class VlasnikDBDAOImpl implements VlasnikDAO {
 	@Override
 	public List<Vlasnik> getAll() throws ResultNotFoundException {
 		List<Vlasnik> vlasnici = new ArrayList<Vlasnik>();
-		
+
 		try {
 
 			Connection conn = getConnection(); // otvara konekciju za bazu sa username i pass
 
 			// the mysql insert statement
-			String query = "select * from vlasnik, vozilo"
-					+ " WHERE vlasnik.brojVozackeDozvole=vozilo.vlasnikId"; // veza vlasnika i vozila
-		
-			PreparedStatement preparedStmt = conn.prepareStatement(query); 
-			
+			String query = "select * from vlasnik, vozilo" + " WHERE vlasnik.brojVozackeDozvole=vozilo.vlasnikId"; // veza
+																													// vlasnika
+																													// i
+																													// vozila
+
+			PreparedStatement preparedStmt = conn.prepareStatement(query);
+
 			// process the results
 			ResultSet rs = preparedStmt.executeQuery(); // slogovi iz baze
-			
-			while (rs.next())//iteriramo kroz te slogove
+
+			while (rs.next())// iteriramo kroz te slogove
 			{
-				Vlasnik vlasnik = new Vlasnik(); //u petlji za svaki slog kreirati novi par vlasnik vozilo, uvezati ih
-				Vozilo vozilo = new Vozilo ();
-				
+				Vlasnik vlasnik = new Vlasnik(); // u petlji za svaki slog kreirati novi par vlasnik vozilo, uvezati ih
+				Vozilo vozilo = new Vozilo();
+
 				vlasnik.setBrojVozackeDozvole(rs.getString("brojVozackeDozvole"));
 				vlasnik.setIme(rs.getString("ime")); // text je naziv kolone
 				vlasnik.setPrezime(rs.getString("prezime"));
-				
+
 				vozilo.setRegistarskiBroj(rs.getString("registarskiBroj"));
 				vozilo.setGodisteProizvodnje(rs.getInt("godisteProizvodnje"));
 				vozilo.setAktivno(rs.getBoolean("status"));
-				vozilo.setVlasnik(vlasnik);//uvezano vozilo sa vlasnikom 
-				
+				vozilo.setVlasnik(vlasnik);// uvezano vozilo sa vlasnikom
+
 				vlasnik.setVozilo(vozilo); // obavezno povezivanje sa vlasnikom
-				
+
 				vlasnici.add(vlasnik);
 			}
 			rs.close(); // sve sto smo otvorili zatvaramo resultset, preparestatment, connection
@@ -190,10 +192,10 @@ public class VlasnikDBDAOImpl implements VlasnikDAO {
 			System.err.println("Got an exception!");
 			System.err.println(t.getMessage());
 		}
-	
+
 		return vlasnici;
 	}
-	
+
 	@Override
 	public long count() throws ResultNotFoundException {
 		long count = 0;
@@ -226,36 +228,37 @@ public class VlasnikDBDAOImpl implements VlasnikDAO {
 	@Override
 	public List<Vlasnik> getAllVlasniciAktivnihVozila() throws ResultNotFoundException {
 		List<Vlasnik> vlasnici = new ArrayList<Vlasnik>();
-		
+
 		try {
 
 			Connection conn = getConnection(); // otvara konekciju za bazu sa username i pass
 
 			// the mysql insert statement
 			String query = "select * from vlasnik, vozilo"
-					+ " WHERE vlasnik.brojVozackeDozvole=vozilo.vlasnikId and vozilo.status=1"; // veza vlasnika i vozila
-		
-			PreparedStatement preparedStmt = conn.prepareStatement(query); 
-			
+					+ " WHERE vlasnik.brojVozackeDozvole=vozilo.vlasnikId and vozilo.status=1"; // veza vlasnika i
+																								// vozila
+
+			PreparedStatement preparedStmt = conn.prepareStatement(query);
+
 			// process the results
 			ResultSet rs = preparedStmt.executeQuery(); // slogovi iz baze
-			
-			while (rs.next())//iteriramo kroz te slogove
+
+			while (rs.next())// iteriramo kroz te slogove
 			{
-				Vlasnik vlasnik = new Vlasnik(); //u petlji za svaki slog kreirati novi par vlasnik vozilo, uvezati ih
-				Vozilo vozilo = new Vozilo ();
-				
+				Vlasnik vlasnik = new Vlasnik(); // u petlji za svaki slog kreirati novi par vlasnik vozilo, uvezati ih
+				Vozilo vozilo = new Vozilo();
+
 				vlasnik.setBrojVozackeDozvole(rs.getString("brojVozackeDozvole"));
 				vlasnik.setIme(rs.getString("ime")); // text je naziv kolone
 				vlasnik.setPrezime(rs.getString("prezime"));
-				
+
 				vozilo.setRegistarskiBroj(rs.getString("registarskiBroj"));
 				vozilo.setGodisteProizvodnje(rs.getInt("godisteProizvodnje"));
 				vozilo.setAktivno(rs.getBoolean("status"));
-				vozilo.setVlasnik(vlasnik);//uvezano vozilo sa vlasnikom 
-				
+				vozilo.setVlasnik(vlasnik);// uvezano vozilo sa vlasnikom
+
 				vlasnik.setVozilo(vozilo); // obavezno povezivanje sa vlasnikom
-				
+
 				vlasnici.add(vlasnik);
 			}
 			rs.close(); // sve sto smo otvorili zatvaramo resultset, preparestatment, connection
@@ -265,12 +268,101 @@ public class VlasnikDBDAOImpl implements VlasnikDAO {
 			System.err.println("Got an exception!");
 			System.err.println(t.getMessage());
 		}
-	
+
 		return vlasnici;
 	}
+
 	private Connection getConnection() throws ClassNotFoundException, SQLException {
 		return C3poDataSource.getConnection();
-		//return DriverManager.getConnection(DBUtils.myUrl, "root", "test");
+		// return DriverManager.getConnection(DBUtils.myUrl, "root", "test");
+	}
+
+	@Override
+	public List<Vlasnik> getAll(int pageNumber) throws ResultNotFoundException {
+		List<Vlasnik> vlasnici = new ArrayList<Vlasnik>();
+		try {
+
+			Connection conn = getConnection(); // otvara konekciju za bazu sa username i pass
+
+			int brojPrvogSlogaNaStrani = (pageNumber - 1) * Konstante.VELICINA_TABELE_PRIKAZA + 1;
+			// the mysql insert statement
+			String query = "select * from vlasnik, vozilo "
+					+ "WHERE vlasnik.brojVozackeDozvole=vozilo.vlasnikId order by vlasnik.id asc " + "LIMIT "
+					+ brojPrvogSlogaNaStrani + "," + Konstante.VELICINA_TABELE_PRIKAZA;// veza vlasnika i vozila
+
+			PreparedStatement preparedStmt = conn.prepareStatement(query);
+
+			// process the results
+			ResultSet rs = preparedStmt.executeQuery(); // slogovi iz baze
+
+			while (rs.next())// iteriramo kroz te slogove
+			{
+				Vlasnik vlasnik = new Vlasnik(); // u petlji za svaki slog kreirati novi par vlasnik vozilo, uvezati ih
+				Vozilo vozilo = new Vozilo();
+
+				vlasnik.setBrojVozackeDozvole(rs.getString("brojVozackeDozvole"));
+				vlasnik.setIme(rs.getString("ime")); // text je naziv kolone
+				vlasnik.setPrezime(rs.getString("prezime"));
+
+				vozilo.setRegistarskiBroj(rs.getString("registarskiBroj"));
+				vozilo.setGodisteProizvodnje(rs.getInt("godisteProizvodnje"));
+				vozilo.setAktivno(rs.getBoolean("status"));
+				vozilo.setVlasnik(vlasnik);// uvezano vozilo sa vlasnikom
+
+				vlasnik.setVozilo(vozilo); // obavezno povezivanje sa vlasnikom
+
+				vlasnici.add(vlasnik);
+			}
+			rs.close(); // sve sto smo otvorili zatvaramo resultset, preparestatment, connection
+			preparedStmt.close();
+			conn.close(); // zatvori konekciju
+		} catch (Throwable t) { // ako ima greska
+			System.err.println("Got an exception!");
+			System.err.println(t.getMessage());
+		}
+
+		return vlasnici;
+	}
+
+	@Override
+	public List<Vlasnik> getAllBezVozila(int pageNumber) throws ResultNotFoundException {
+		List<Vlasnik> vlasnici = new ArrayList<Vlasnik>();
+		try {
+
+			Connection conn = getConnection(); // otvara konekciju za bazu sa username i pass
+
+			int brojPrvogSlogaNaStrani = (pageNumber - 1) * Konstante.VELICINA_TABELE_PRIKAZA + 1;
+			// the mysql insert statement
+			String query = "select * from vlasnik "
+					+ "order by vlasnik.id asc " 
+					+ "LIMIT "
+					+ brojPrvogSlogaNaStrani + "," + Konstante.VELICINA_TABELE_PRIKAZA;// veza vlasnika i vozila
+
+			PreparedStatement preparedStmt = conn.prepareStatement(query);
+
+// process the results
+			ResultSet rs = preparedStmt.executeQuery(); // slogovi iz baze
+
+			while (rs.next())// iteriramo kroz te slogove
+			{
+				Vlasnik vlasnik = new Vlasnik(); // u petlji za svaki slog kreirati novi par vlasnik vozilo, uvezati ih
+				
+
+				vlasnik.setBrojVozackeDozvole(rs.getString("brojVozackeDozvole"));
+				vlasnik.setIme(rs.getString("ime")); // text je naziv kolone
+				vlasnik.setPrezime(rs.getString("prezime"));
+
+				vlasnici.add(vlasnik);
+			}
+			rs.close(); // sve sto smo otvorili zatvaramo resultset, preparestatment, connection
+			preparedStmt.close();
+			conn.close(); // zatvori konekciju
+		} catch (Throwable t) { // ako ima greska
+			System.err.println("Got an exception!");
+			System.err.println(t.getMessage());
+		}
+
+		return vlasnici;
 	}
 
 }
