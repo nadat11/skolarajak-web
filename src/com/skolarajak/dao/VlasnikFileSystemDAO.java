@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -115,6 +116,12 @@ public class VlasnikFileSystemDAO implements VlasnikDAO {
 
 	@Override
 	public List<Vlasnik> getAllBezVozila(int pageNumber) throws ResultNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Vlasnik readBezVozila(String brojVozackeDozvole) throws ResultNotFoundException, SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}

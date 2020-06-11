@@ -99,7 +99,47 @@ public class VlasnikDBDAOImpl implements VlasnikDAO {
 
 		return vlasnik;
 	};
+	
+	
+	public Vlasnik readBezVozila(String brojVozackeDozvole) throws ResultNotFoundException, SQLException {
+		Vlasnik vlasnik = new Vlasnik();
+		
+		Connection conn =null; 
+		PreparedStatement preparedStmt = null;
+		ResultSet rs = null;
+		try {
+			conn = getConnection();
 
+			// the mysql insert statement
+			String query = "select * from vlasnik where brojVozackeDozvole=? ";
+
+			// create the mysql insert preparedstatement
+			preparedStmt = conn.prepareStatement(query);
+
+			preparedStmt.setString(1, brojVozackeDozvole);
+
+			// execute the preparedstatement
+
+			rs = preparedStmt.executeQuery();
+
+			while (rs.next()) {
+				vlasnik.setBrojVozackeDozvole(brojVozackeDozvole);
+				vlasnik.setIme(rs.getString("ime"));
+				vlasnik.setPrezime(rs.getString("prezime"));
+			}
+
+		} catch (Throwable t) {
+			System.err.println("Got an exception!");
+			System.err.println(t.getMessage());
+		} finally {
+			rs.close();
+			preparedStmt.close();
+			conn.close();
+		} 
+		
+		return vlasnik;
+	};
+	
 	@Override
 	public Vlasnik update(Vlasnik vlasnik)  {
 		

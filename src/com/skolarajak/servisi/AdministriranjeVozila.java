@@ -120,7 +120,11 @@ public class AdministriranjeVozila {
 		return voziloDAO.getAll();
 	}
 
-	public Vlasnik dajVlasnika(String brojVozackeDozvole) throws ResultNotFoundException {
+	public Vlasnik dajVlasnika(String brojVozackeDozvole) throws ResultNotFoundException, SQLException {
+		return vlasnikDAO.readBezVozila(brojVozackeDozvole);
+	}
+	
+	public Vlasnik dajVlasnikaBezVozila(String brojVozackeDozvole) throws ResultNotFoundException {
 		return vlasnikDAO.read(brojVozackeDozvole);
 	}
 	

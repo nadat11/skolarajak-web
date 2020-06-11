@@ -22,4 +22,5 @@ public interface VlasnikDAO {
 	long count() throws ResultNotFoundException ;
 	
 	List<Vlasnik> getAllVlasniciAktivnihVozila() throws ResultNotFoundException; 
+	Vlasnik readBezVozila(String brojVozackeDozvole) throws ResultNotFoundException, SQLException; 
 }

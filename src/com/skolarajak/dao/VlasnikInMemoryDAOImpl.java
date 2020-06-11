@@ -1,5 +1,6 @@
 package com.skolarajak.dao;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -80,6 +81,12 @@ public class VlasnikInMemoryDAOImpl implements VlasnikDAO {
 
 	@Override
 	public List<Vlasnik> getAllBezVozila(int pageNumber) throws ResultNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Vlasnik readBezVozila(String brojVozackeDozvole) throws ResultNotFoundException, SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
