@@ -42,15 +42,10 @@ public class LoginServlet extends HttpServlet {
 		if (administracijaKorisnika.isRegistered(username)) {
 			if (administracijaKorisnika.isAuthenticated(username, password)) {
 				handleUserRole(request, response, username);
-
 			} else {
-				// request.getRequestDispatcher("/vezba-security/wrongPassword.html").forward(request,
-				// response);
 				response.sendRedirect("/javaweb/vezba-security/wrongPassword.html");
 			}
 		} else {
-			// request.getRequestDispatcher("/vezba-security/notRegisteredUser.html").forward(request,
-			// response);
 			response.sendRedirect("/javaweb/vezba-security/notRegisteredUser.html");
 		}
 
@@ -63,16 +58,13 @@ public class LoginServlet extends HttpServlet {
 		if (user != null) {
 			request.getSession().setAttribute("user", user);
 		}
-		if (user.getRole().equals(Roles.ADMIN)) {
-			// request.getRequestDispatcher("/vezba-security/adminHomeServlet.html").forward(request,
-			// response);
-			response.sendRedirect("/javaweb/vezba-security/adminHomeServlet.html"); // obavezan konteks, ostaje isti
-																					// rezultat jer imamo ovorenu
-																					// Sessiju
-		} else {
-			// request.getRequestDispatcher("/vezba-security/homeServlet.html").forward(request,
-			// response);
-			response.sendRedirect("/javaweb/vezba-security/homeServlet.html");
+		switch (user.getRole()) {
+		case ADMIN : response.sendRedirect("/javaweb/vezba-security/adminHomeServlet.html");
+			break;
+		case USER : 	response.sendRedirect("/javaweb/vezba-security/homeServlet.html");
+			break;
+		default : 	response.sendRedirect("/javaweb/vezba-security/notAuthorized.html");
+			break;		
 		}
 	}
 
