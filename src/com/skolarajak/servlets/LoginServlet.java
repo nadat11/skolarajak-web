@@ -39,16 +39,26 @@ public class LoginServlet extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 
+		handleExistingUser(request, response, username, password);
+
+	}
+
+	private void handleExistingUser(HttpServletRequest request, HttpServletResponse response, String username,
+			String password) throws IOException {
 		if (administracijaKorisnika.isRegistered(username)) {
-			if (administracijaKorisnika.isAuthenticated(username, password)) {
-				handleUserRole(request, response, username);
-			} else {
-				response.sendRedirect("/javaweb/vezba-security/wrongPassword.html");
-			}
+			handleAuthentication(request, response, username, password);
 		} else {
 			response.sendRedirect("/javaweb/vezba-security/notRegisteredUser.html");
 		}
+	}
 
+	private void handleAuthentication(HttpServletRequest request, HttpServletResponse response, String username,
+			String password) throws IOException {
+		if (administracijaKorisnika.isAuthenticated(username, password)) {
+			handleUserRole(request, response, username);
+		} else {
+			response.sendRedirect("/javaweb/vezba-security/wrongPassword.html");
+		}
 	}
 
 	private void handleUserRole(HttpServletRequest request, HttpServletResponse response, String username)
