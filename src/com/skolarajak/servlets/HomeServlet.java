@@ -7,29 +7,32 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.skolarajak.model.Roles;
+
 /**
  * Servlet implementation class HomeServlet
  */
 @WebServlet("/vezba-security/homeServlet.html")
-public class HomeServlet extends HttpServlet {
+public class HomeServlet extends BaseAuthorizationServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
     public HomeServlet() {
-        super();
-        // TODO Auto-generated constructor stub
+    	super();
+    	this.assignRole=Roles.USER;
+       
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/vezba-security/homePage.jsp").forward(request,response);
+		if(isAuthorized(request, response)) {;
+		request.getRequestDispatcher("/vezba-security/pages/homePage.jsp").forward(request,response);
 	}
-
+	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

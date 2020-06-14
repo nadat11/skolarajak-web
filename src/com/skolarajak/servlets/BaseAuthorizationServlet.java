@@ -8,20 +8,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.skolarajak.model.Roles;
+import com.skolarajak.model.User;
 
 /**
- * Servlet implementation class AdminHomeServlet
+ * Servlet implementation class BaseAuthorizationServlet
  */
-@WebServlet("/vezba-security/adminHomeServlet.html")
-public class AdminHomeServlet extends BaseAuthorizationServlet {
+
+public class BaseAuthorizationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	protected Roles assignRole;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminHomeServlet() {
+    public BaseAuthorizationServlet() {
         super();
-        this.assignRole=Roles.ADMIN;
         // TODO Auto-generated constructor stub
     }
 
@@ -29,17 +30,27 @@ public class AdminHomeServlet extends BaseAuthorizationServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			if(isAuthorized(request, response)){ //roditeljska metoda		
-			request.getRequestDispatcher("/vezba-security/pages/adminHomePage.jsp").forward(request,response);//jsp stranu ne otvaramo u browseru ali se vidi 
+		// TODO Auto-generated method stub
+		if (request.getSession().getAttribute("user")==null){
+			response.sendRedirect("/javaweb/vezba-security/notAuthorized.html");
+		}
 	}
-}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
-		
 	}
-
+	protected boolean isAuthorized(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		boolean isAuthorized = false;
+		User user = (User)request.getSession().getAttribute("user");
+		if (user==null || !user.getRole().equals(this.assignRole)){
+			response.sendRedirect("/javaweb/vezba-security/notAuthorized.html");
+		}else {
+			isAuthorized = true;
+		}
+		return isAuthorized;
+	}
 }

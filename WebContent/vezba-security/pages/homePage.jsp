@@ -4,9 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Home page</title>
 </head>
 <body>
-
+<jsp:include page="menu.jsp" />
+User Home Page
 </body>
 </html>
