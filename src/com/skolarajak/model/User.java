@@ -17,10 +17,10 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public Roles  getRole() {
+	public Roles getRole() {
 		return role;
 	}
-	public void setRole(Roles  role) {
+	public void setRole(Roles role) {
 		this.role = role;
 	}
 	

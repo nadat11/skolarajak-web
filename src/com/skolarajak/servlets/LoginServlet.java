@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.skolarajak.model.Roles;
 import com.skolarajak.model.User;
 import com.skolarajak.servisi.AdministracijaKorisnika;
 
@@ -71,7 +70,7 @@ public class LoginServlet extends HttpServlet {
 		switch (user.getRole()) {
 		case ADMIN : response.sendRedirect("/javaweb/vezba-security/adminHomeServlet.html");
 			break;
-		case USER : 	response.sendRedirect("/javaweb/vezba-security/homeServlet.html");
+		case USER : response.sendRedirect("/javaweb/vezba-security/homeServlet.html");
 			break;
 		default : 	response.sendRedirect("/javaweb/vezba-security/notAuthorized.html");
 			break;		

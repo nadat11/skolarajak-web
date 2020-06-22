@@ -29,11 +29,11 @@ public class AdminHomeServlet extends BaseAuthorizationServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			if(isAuthorized(request, response)){ //roditeljska metoda		
+			if(isAuthorized(request, response)){ ;//roditeljska metoda		
 			request.getRequestDispatcher("/vezba-security/pages/adminHomePage.jsp").forward(request,response);//jsp stranu ne otvaramo u browseru ali se vidi 
 	}
-}
 
+	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -41,5 +41,5 @@ public class AdminHomeServlet extends BaseAuthorizationServlet {
 		doGet(request, response);
 		
 	}
-
+	
 }

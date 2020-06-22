@@ -35,7 +35,7 @@
 				
 				out.write(String.format(dataTemplate, vozilo.getVlasnik().getIme()));
 				
-				String vlasnikLinkTemplate = "<a href='/javaweb/vezba-baza/prikazvlasnik.jsp?id=%s' target='_blank'>%s</a>";
+				String vlasnikLinkTemplate = "<a href='/javaweb/vezba-baza/prikazVlasnik.jsp?id=%s' target='_blank'>%s</a>";
 				String brojVozackeDozvole = vozilo.getVlasnik().getBrojVozackeDozvole();
 				String vlasnikLink = String.format(vlasnikLinkTemplate, brojVozackeDozvole, brojVozackeDozvole);
 				
@@ -46,9 +46,9 @@
 			out.write("<div class='no-result>'Nema rezultata</div>");
 		}
 		%>
-		<a class="pages" href="/javaweb/vezba-baza/db.jsp?p=<%=pageNumber - 1%>"> < </a>
-		<div class="pages">	strana<%=pageNumber%></div>
-		<a class="pages"href="/javaweb/vezba-baza/db.jsp?p=<%=pageNumber + 1%>"> > </a>
+		<a class="pages" href="/javaweb/vezba-baza/db.jsp?p=<%=pageNumber - 1%>">  </a>
+		<div class="pages">	strana<%=pageNumber%> </div>
+		<a class="pages"href="/javaweb/vezba-baza/db.jsp?p=<%=pageNumber + 1%>">  </a>
 	</table>
 </body>
 </html>
