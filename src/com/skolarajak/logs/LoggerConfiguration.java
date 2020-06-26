@@ -6,20 +6,19 @@ import java.util.logging.LogManager;
 
 public class LoggerConfiguration {
 
-    private static final LogManager logManager = LogManager.getLogManager();
+	private static final LogManager logManager = LogManager.getLogManager();
 
-    /*
-     * Java static block always loads before constructors
-     */
-    static {
-        try {
-            InputStream inputStream = 
-                ClassLoader.class.getResourceAsStream("/logger.properties");
+	/*
+	 * Java static block always loads before constructors
+	 */
+	static {
+		try {
+			InputStream inputStream = ClassLoader.class.getResourceAsStream("/logger.properties");
 
-            logManager.readConfiguration(inputStream);
+			logManager.readConfiguration(inputStream);
 
-        } catch (IOException exception) {
-            exception.printStackTrace();
-        }
-    }
+		} catch (IOException exception) {
+			exception.printStackTrace();
+		}
+	}
 }

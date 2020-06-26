@@ -7,7 +7,7 @@ public class Vozilo {
 	private boolean aktivno;
 	private String registarskiBroj;
 	private Vlasnik vlasnik;
-	
+
 	public Vozilo() {
 		this.godisteProizvodnje = 0;
 	}
@@ -24,7 +24,6 @@ public class Vozilo {
 		this.vlasnik = vlasnik;
 	}
 
-	
 	public Vozilo(Integer godisteProizvodnje) {
 		this.godisteProizvodnje = godisteProizvodnje;
 	}

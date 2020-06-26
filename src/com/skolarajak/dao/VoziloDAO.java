@@ -13,14 +13,18 @@ public interface VoziloDAO {
 	Vozilo update(Vozilo vozilo);
 
 	void delete(String registarskiBroj);
-	
-	List<Vozilo> getAll() throws ResultNotFoundException; 
-	List<Vozilo> getEuro3Vozila() throws ResultNotFoundException; 
-	List<Vozilo> getEuro3Vozila(int page) throws ResultNotFoundException; 
-	List<Vozilo> getAktivnaVozila() throws ResultNotFoundException; 
-	
+
+	List<Vozilo> getAll() throws ResultNotFoundException;
+
+	List<Vozilo> getEuro3Vozila() throws ResultNotFoundException;
+
+	List<Vozilo> getEuro3Vozila(int page) throws ResultNotFoundException;
+
+	List<Vozilo> getAktivnaVozila() throws ResultNotFoundException;
+
 	long count() throws ResultNotFoundException;
+
 	List<Vozilo> getAllVozilaCijeImeVlasnikaSadrziSlovoA() throws ResultNotFoundException;
-	
+
 	List<Vozilo> getAllVozilaZaVlasnika(String brojVozackeDozvole) throws ResultNotFoundException;
 }

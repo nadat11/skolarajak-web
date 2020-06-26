@@ -88,30 +88,34 @@ public class AppConsole {
 	private static void opcija3() throws ResultNotFoundException {
 		// izdvoj sve vlasnike
 		System.out.println("========IZLISTAJ SVE VLASNIKE=========");
-		List<Vlasnik> vlasnici = administracijaVozila.dajSveVlasnike(); 
+		List<Vlasnik> vlasnici = administracijaVozila.dajSveVlasnike();
 		System.out.println("Ukupno vlasnika: " + vlasnici.size());
 		PrikazUtils.izlistajVlasnici(vlasnici);
 	}
-	private static void opcija4() throws ResultNotFoundException, IOException { 
+
+	private static void opcija4() throws ResultNotFoundException, IOException {
 		// izdvoj sve vlasnike
 		System.out.println("========IZLISTAJ VLASNIKE SVIH AKTIVNIH VOZILA=========");
-		List<Vlasnik> vlasnici = administracijaVozila.dajSveVlasnikeAktivnihVozila(); 
+		List<Vlasnik> vlasnici = administracijaVozila.dajSveVlasnikeAktivnihVozila();
 		PrikazUtils.izlistajVlasnici(vlasnici);
 		PrikazUtils.izlistajVlasnikeUDatoteku(vlasnici);
 	}
+
 	private static void opcija5() throws ResultNotFoundException, IOException {
 		// izdvoj sve vlasnike
 		System.out.println("========Izlistaj vozila svih vlasnika cije ime sadrzi slovo A=========");
-		List<Vozilo> vozilo = administracijaVozila.dajSvaVozilaCijeImeVlasnikaSadrziSlovoA(); 
+		List<Vozilo> vozilo = administracijaVozila.dajSvaVozilaCijeImeVlasnikaSadrziSlovoA();
 		System.out.println(vozilo.size());
 		PrikazUtils.izlistajVozila(vozilo);
 		PrikazUtils.izlistajVozilaUDatoteku(vozilo);
 		PrikazUtils.izlistajVozilaIzDatoteke();
 	}
+
 	private static void opcija6() throws ResultNotFoundException, IOException {
 		administracijaVozila.obrisiSve();
 		System.out.println("========Obrisi sve=========");
 	}
+
 	private static void prikaziOpcije() { // rad sa app iz konzole
 		System.out.println("--------------------------------------------------");
 		System.out.println("0 -> Izlistaj vozila");

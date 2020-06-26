@@ -16,17 +16,17 @@ import com.skolarajak.servisi.AdministriranjeVozila;
 /**
  * Servlet implementation class ListajVlasnike
  */
-@WebServlet("/ListajVlasnike")
+@WebServlet( "/vezba-security/ListajVlasnike.html")
 public class ListajVlasnike extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ListajVlasnike() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public ListajVlasnike() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see Servlet#init(ServletConfig)
@@ -36,23 +36,25 @@ public class ListajVlasnike extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//pageNumber preuzet iz requesta za paginaciju
+		// pageNumber preuzet iz requesta za paginaciju
 		Integer pageNumber = Integer.parseInt(request.getParameter("p"));
-		List<Vlasnik> vlasnici = null; //deklaracija liste
+		List<Vlasnik> vlasnici = null; // deklaracija liste
 		// insatcirana administracijaVozila
 		AdministriranjeVozila administracijaVozila = new AdministriranjeVozila();
 		try {
-		vlasnici = administracijaVozila.dajSveVlasnike(pageNumber); // prikazuje sve vlasnike za pageNumber
+			vlasnici = administracijaVozila.dajSveVlasnike(pageNumber); // prikazuje sve vlasnike za pageNumber
 		} catch (ResultNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-					
+
 		}
-		// vraca request	
+		// vraca request
 		request.setAttribute("listaVlasnika", vlasnici);
 		request.setAttribute("pageNumber", pageNumber);
 		request.getSession().setAttribute("username", "test user");
@@ -61,9 +63,11 @@ public class ListajVlasnike extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

@@ -15,6 +15,7 @@ import com.skolarajak.model.Vozilo;
 public class PrikazUtils {
 	private static String FILE_ROOT = "c:/tmp/izvestaj.txt";
 	public static String SEPARATOR = ";";
+
 	public static void izlistajVozila(List<Vozilo> vozila) {
 		vozila.forEach(PrikazUtils::printVozilo);
 	}
@@ -22,44 +23,50 @@ public class PrikazUtils {
 	public static void izlistajVozilaUDatoteku(List<Vozilo> vozila) throws IOException {
 		Class clazz = Vozilo.class;
 		Field[] fields = clazz.getDeclaredFields();
-			for(Field field : fields ) {
-				System.out.println("fieldName: " + field.getName()+", fieldType:  " + field.getType());
-			}
-	}
-	public static void izlistajVozilaIzDatoteke() throws IOException { //citanje iz file-a
-		Path path =Paths.get(FILE_ROOT);
-		String thisLine = null;
-		try (BufferedReader reader= Files.newBufferedReader(path)) // try with resourses
-		{ 
-			while ((thisLine = reader.readLine()) != null ) { // zatvoren blok try readLine cita i setuje thihLine proverava da li je prva linija null (null je na kraju)
-				System.out.println("*****" + thisLine); //nakon citanja prve linije,kursor je na drugoj liniji, ispisujemo prvu liniju, ulazimo u while petlju
-			}
-			
+		for (Field field : fields) {
+			System.out.println("fieldName: " + field.getName() + ", fieldType:  " + field.getType());
 		}
 	}
+
+	public static void izlistajVozilaIzDatoteke() throws IOException { // citanje iz file-a
+		Path path = Paths.get(FILE_ROOT);
+		String thisLine = null;
+		try (BufferedReader reader = Files.newBufferedReader(path)) // try with resourses
+		{
+			while ((thisLine = reader.readLine()) != null) { // zatvoren blok try readLine cita i setuje thihLine
+																// proverava da li je prva linija null (null je na
+																// kraju)
+				System.out.println("*****" + thisLine); // nakon citanja prve linije,kursor je na drugoj liniji,
+														// ispisujemo prvu liniju, ulazimo u while petlju
+			}
+
+		}
+	}
+
 	public static void izlistajVlasnici(List<Vlasnik> vlasnici) {
 		vlasnici.forEach(PrikazUtils::printVlasnik);
 	}
 
-	public static void izlistajVlasnikeUDatoteku(List<Vlasnik> vlasnici) throws IOException  {
+	public static void izlistajVlasnikeUDatoteku(List<Vlasnik> vlasnici) throws IOException {
 		/*
-		 * Get the file name reference 
-		 * Path path =Paths.get("c:/output.txt");
+		 * Get the file name reference Path path =Paths.get("c:/output.txt");
 		 * 
-		 * Use try-with-resourse to get auto-closeable writer instance 
-		 * try (BufferedWriter writer = Files.newBufferedWriter(path)){
+		 * Use try-with-resourse to get auto-closeable writer instance try
+		 * (BufferedWriter writer = Files.newBufferedWriter(path)){
 		 * writer.write("Hello World!!"); } }
 		 */
-		Path path =Paths.get(FILE_ROOT);
-		try (BufferedWriter writer= Files.newBufferedWriter(path)){
-			  for(Vlasnik v : vlasnici) {
-				  writer.write(v.toString()+"\r\n");
-				  writer.newLine();//  writer.write(v.toString()+"\r\n");   // umesto to String menja se u toCSV
-				  //getBrojVozackeDozvole() + SEPARATOR+ v.getIme());
-				//  writer.newLine(); // line separator
-			  };//.write(vlasnici.); 
+		Path path = Paths.get(FILE_ROOT);
+		try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+			for (Vlasnik v : vlasnici) {
+				writer.write(v.toString() + "\r\n");
+				writer.newLine();// writer.write(v.toString()+"\r\n"); // umesto to String menja se u toCSV
+				// getBrojVozackeDozvole() + SEPARATOR+ v.getIme());
+				// writer.newLine(); // line separator
+			}
+			;// .write(vlasnici.);
+		}
 	}
-}
+
 	public static void printVozilo(Vozilo vozilo) {
 		System.out.println(vozilo.toString());
 	}

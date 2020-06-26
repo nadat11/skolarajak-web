@@ -15,31 +15,38 @@ import com.skolarajak.model.Roles;
 @WebServlet("/vezba-security/adminHomeServlet.html")
 public class AdminHomeServlet extends BaseAuthorizationServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AdminHomeServlet() {
-        super();
-        this.assignRole=Roles.ADMIN;
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			if(isAuthorized(request, response)){ ;//roditeljska metoda		
-			request.getRequestDispatcher("/vezba-security/pages/adminHomePage.jsp").forward(request,response);//jsp stranu ne otvaramo u browseru ali se vidi 
+	public AdminHomeServlet() {
+		super();
+		this.assignRole = Roles.ADMIN;
+		// TODO Auto-generated constructor stub
 	}
 
-	}
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		if (isAuthorized(request, response)) {
+			// roditeljska metoda
+		request.getRequestDispatcher("/vezba-security/pages/adminHomePage.jsp").forward(request, response);// jsp
+																							// vidi
+		}
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
-		
+
 	}
-	
+
 }

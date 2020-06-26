@@ -9,7 +9,7 @@ import com.mchange.v2.c3p0.jboss.C3P0PooledDataSource;
 import com.skolarajak.utils.DBUtils;
 
 public class C3poDataSource {
-	private static ComboPooledDataSource cpds =new ComboPooledDataSource();
+	private static ComboPooledDataSource cpds = new ComboPooledDataSource();
 	// konfiguracija connection pool to DB
 	static {
 		try {
@@ -19,13 +19,15 @@ public class C3poDataSource {
 			cpds.setPassword("test");
 			cpds.setInitialPoolSize(10);
 			cpds.setMaxPoolSize(120);
-		}catch (PropertyVetoException e) {
-			
+		} catch (PropertyVetoException e) {
+
 		}
 	}
-	public static Connection getConnection() throws SQLException
-{
+
+	public static Connection getConnection() throws SQLException {
 		return cpds.getConnection();
-		}
-	private C3poDataSource() {}
+	}
+
+	private C3poDataSource() {
+	}
 }

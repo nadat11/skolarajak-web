@@ -68,12 +68,15 @@ public class LoginServlet extends HttpServlet {
 			request.getSession().setAttribute("user", user);
 		}
 		switch (user.getRole()) {
-		case ADMIN : response.sendRedirect("/javaweb/vezba-security/adminHomeServlet.html");
+		case ADMIN:
+			response.sendRedirect("/javaweb/vezba-security/adminHomeServlet.html");
 			break;
-		case USER : response.sendRedirect("/javaweb/vezba-security/homeServlet.html");
+		case USER:
+			response.sendRedirect("/javaweb/vezba-security/homeServlet.html");
 			break;
-		default : 	response.sendRedirect("/javaweb/vezba-security/notAuthorized.html");
-			break;		
+		default:
+			response.sendRedirect("/javaweb/vezba-security/notAuthorized.html");
+			break;
 		}
 	}
 

@@ -28,16 +28,16 @@ public class VlasnikDBDAOImpl implements VlasnikDAO {
 		PreparedStatement preparedStmt = null;
 		try {
 			// create a mysql database connection
-			
-			 conn = getConnection(); // otvara konekciju za bazu sa username i pass
-			 conn.setAutoCommit(false);
+
+			conn = getConnection(); // otvara konekciju za bazu sa username i pass
+			conn.setAutoCommit(false);
 			// the mysql insert statement
 			String query = "insert into vlasnik (brojVozackeDozvole, ime, prezime)" + " values (?, ?, ?)"; // insert
 																											// sql
 
 			// create the mysql insert preparedstatement za ? ? ? ?
-			 preparedStmt = conn.prepareStatement(query); // prepare znaci da se insert napravi
-																			// sematski jednom i onda se izvrsava
+			preparedStmt = conn.prepareStatement(query); // prepare znaci da se insert napravi
+															// sematski jednom i onda se izvrsava
 			preparedStmt.setString(1, vlasnik.getBrojVozackeDozvole()); // moramo da kazemo tip prepare statmenta ovde
 																		// su sva tri String
 			preparedStmt.setString(2, vlasnik.getIme());
@@ -45,7 +45,7 @@ public class VlasnikDBDAOImpl implements VlasnikDAO {
 
 			// execute the preparedstatement
 			preparedStmt.execute(); // izvrsi
-			//preparedStmt.close();
+			// preparedStmt.close();
 			conn.commit(); // zatvori konekciju
 		} catch (Exception e) { // ako ima greska
 			System.err.println("Got an exception!");
@@ -54,7 +54,7 @@ public class VlasnikDBDAOImpl implements VlasnikDAO {
 		} finally {
 			preparedStmt.close();
 			conn.close();
-			
+
 		}
 		return vlasnik;
 	};
@@ -99,12 +99,11 @@ public class VlasnikDBDAOImpl implements VlasnikDAO {
 
 		return vlasnik;
 	};
-	
-	
+
 	public Vlasnik readBezVozila(String brojVozackeDozvole) throws ResultNotFoundException, SQLException {
 		Vlasnik vlasnik = new Vlasnik();
-		
-		Connection conn =null; 
+
+		Connection conn = null;
 		PreparedStatement preparedStmt = null;
 		ResultSet rs = null;
 		try {
@@ -135,14 +134,14 @@ public class VlasnikDBDAOImpl implements VlasnikDAO {
 			rs.close();
 			preparedStmt.close();
 			conn.close();
-		} 
-		
+		}
+
 		return vlasnik;
 	};
-	
+
 	@Override
-	public Vlasnik update(Vlasnik vlasnik)  {
-		
+	public Vlasnik update(Vlasnik vlasnik) {
+
 		try {
 			// create a mysql database connection
 
@@ -378,10 +377,8 @@ public class VlasnikDBDAOImpl implements VlasnikDAO {
 
 			int brojPrvogSlogaNaStrani = (pageNumber - 1) * Konstante.VELICINA_TABELE_PRIKAZA + 1;
 			// the mysql insert statement
-			String query = "select * from vlasnik "
-					+ "order by vlasnik.id asc " 
-					+ "LIMIT "
-					+ brojPrvogSlogaNaStrani + "," + Konstante.VELICINA_TABELE_PRIKAZA;// veza vlasnika i vozila
+			String query = "select * from vlasnik " + "order by vlasnik.id asc " + "LIMIT " + brojPrvogSlogaNaStrani
+					+ "," + Konstante.VELICINA_TABELE_PRIKAZA;// veza vlasnika i vozila
 
 			PreparedStatement preparedStmt = conn.prepareStatement(query);
 
@@ -391,7 +388,6 @@ public class VlasnikDBDAOImpl implements VlasnikDAO {
 			while (rs.next())// iteriramo kroz te slogove
 			{
 				Vlasnik vlasnik = new Vlasnik(); // u petlji za svaki slog kreirati novi par vlasnik vozilo, uvezati ih
-				
 
 				vlasnik.setBrojVozackeDozvole(rs.getString("brojVozackeDozvole"));
 				vlasnik.setIme(rs.getString("ime")); // text je naziv kolone

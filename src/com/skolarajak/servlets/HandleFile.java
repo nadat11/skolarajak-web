@@ -16,84 +16,89 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-
 /**
  * Servlet implementation class UploadFile
  */
- @WebServlet(value = "/vezba-servleti/handleFile.html")
- @MultipartConfig
- public class HandleFile extends HttpServlet {
- 	private static final long serialVersionUID = 1L;
- 	private final int ARBITARY_SIZE = 1048;
-        
-     /**
-      * @see HttpServlet#HttpServlet()
-      */
-     public HandleFile() {
-         super();
-         // TODO Auto-generated constructor stub
-     }
+@WebServlet(value = "/vezba-servleti/handleFile.html")
+@MultipartConfig
+public class HandleFile extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	private final int ARBITARY_SIZE = 1048;
 
- 	/**
- 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
- 	 */
- 	protected void doGet (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
- 		// TODO Auto-generated method stub
- 		String fileName = request.getParameter("name");
- 		
- 		response.setContentType("image/jpeg");
- 		response.setHeader("Content-disposition", "attachment; filename="+fileName);
-  
-         try(InputStream in = new FileInputStream(new File("c:/tmpv/"+fileName));
-           OutputStream out = response.getOutputStream()) {
-  
-             byte[] buffer = new byte[ARBITARY_SIZE];
-          
-             int numBytesRead;
-             while ((numBytesRead = in.read(buffer)) > 0) {
-                 out.write(buffer, 0, numBytesRead);
-             }
-         }
- 	}
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public HandleFile() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		String fileName = request.getParameter("name");
+
+		response.setContentType("image/jpeg");
+		response.setHeader("Content-disposition", "attachment; filename=" + fileName);
+
+		try (InputStream in = new FileInputStream(new File("c:/tmpv/" + fileName));
+				OutputStream out = response.getOutputStream()) {
+
+			byte[] buffer = new byte[ARBITARY_SIZE];
+
+			int numBytesRead;
+			while ((numBytesRead = in.read(buffer)) > 0) {
+				out.write(buffer, 0, numBytesRead);
+			}
+		}
+	}
 
 	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
 
-	
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// sa html forme cemo da procitamo description filea, filePart ce bitiu ucita file sa browswera,
-		//fileName je ime fila iz fileParta, inputStream u memoriji ucitan file
-		/*String description = request.getParameter("");
-		System.out.println(description);// upisujemo opis filea iz metha data
-		Part filePart = request.getPart("file");
-		String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-		InputStream fileContent=filePart.getInputStream();
-		
-		byte[] buffer=new byte[fileContent.available()]; // ucitava niz bajtova
-		fileContent.read(buffer); // u bufer
-		
-		File targetFile = new File("C:\\tmpv"+ fileName); //otvorimo targetfile i kreiramo output stream i vezemo za output file, mesto skladistenja
-		OutputStream outStream = new FileOutputStream(targetFile);
-		outStream.write(buffer);// upis filea*/
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// sa html forme cemo da procitamo description filea, filePart ce bitiu ucita
+		// file sa browswera,
+		// fileName je ime fila iz fileParta, inputStream u memoriji ucitan file
+		/*
+		 * String description = request.getParameter("");
+		 * System.out.println(description);// upisujemo opis filea iz metha data Part
+		 * filePart = request.getPart("file"); String fileName =
+		 * Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+		 * InputStream fileContent=filePart.getInputStream();
+		 * 
+		 * byte[] buffer=new byte[fileContent.available()]; // ucitava niz bajtova
+		 * fileContent.read(buffer); // u bufer
+		 * 
+		 * File targetFile = new File("C:\\tmpv"+ fileName); //otvorimo targetfile i
+		 * kreiramo output stream i vezemo za output file, mesto skladistenja
+		 * OutputStream outStream = new FileOutputStream(targetFile);
+		 * outStream.write(buffer);// upis filea
+		 */
+
 		String description = request.getParameter("description"); // Retrieves <input type="text" name="description">
-	    System.out.println(description);
+		System.out.println(description);
 		Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
-	    String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
-	    InputStream fileContent = filePart.getInputStream();
-	    
-	    byte[] buffer = new byte[fileContent.available()];
-	    fileContent.read(buffer);
-	 
-	    File targetFile = new File("c:/tempv/"+fileName);
-	    OutputStream outStream = new FileOutputStream(targetFile);
-	    outStream.write(buffer);
-	    
+		String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
+		InputStream fileContent = filePart.getInputStream();
+
+		byte[] buffer = new byte[fileContent.available()];
+		fileContent.read(buffer);
+
+		File targetFile = new File("c:/tempv/" + fileName);
+		OutputStream outStream = new FileOutputStream(targetFile);
+		outStream.write(buffer);
+
 	}
 
 }
