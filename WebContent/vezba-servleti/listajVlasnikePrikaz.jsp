@@ -6,8 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Listaj vlasnika</title>
-<link rel="stylesheet" type="text/css"
-	href="/javaweb/vezba-baza/style.css">
+<link rel="stylesheet" type="text/css"	href="/javaweb/vezba-baza/style.css">
 </head>
 <body>
 	<table border="1">

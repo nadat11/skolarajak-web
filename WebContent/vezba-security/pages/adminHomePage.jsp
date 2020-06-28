@@ -4,12 +4,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="/javaweb/vezba-security/assets/css/stilovi.css">
 <title>Admin Home Page</title>
 </head>
+
 <body>
 <jsp:include page="menu.jsp" />
-<h3>Admin Home Page</h3>
-<table border="1">
+
+<div class="standardWidth">
+<table class="tabela-vlasnici" border="1">
+<th>Ime vlasnika</th>
+<th>Prezime vlasnika</th>
+<th>Broj vozacke dozvole</th>
+		
 		<%
 			int pageNumber = 1;
 
@@ -43,9 +50,14 @@
 		}
 		
 		%>
-		<a class="pages" href="/javaweb/vezba-security/adminHomeServlet.html?p=<%= pageNumber-1 %>"> < </a>
-		<div class="pages">strana <%= pageNumber%> </div>
-		<a class="pages" href="/javaweb/vezba-security/adminHomeServlet.html?p=<%= pageNumber+1 %>"> > </a>
+		
 	</table>
+	</div>
+	<jsp:include page="paginator.jsp">
+	<jsp:param name="servlet" value="adminHomeServlet" />
+	<jsp:param name="pageNumber" value="<%= pageNumber %>" />
+	</jsp:include>
+	
+	<jsp:include page="footer.jsp" />
 </body>
 </html>
